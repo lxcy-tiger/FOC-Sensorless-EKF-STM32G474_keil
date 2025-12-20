@@ -1,0 +1,70 @@
+
+# --- Build outputs (编译产物) ---
+*.axf
+*.elf
+*.hex
+*.bin
+*.out
+*.map
+*.lst
+# 允许特定的 CMSIS-DSP 静态库
+!Middlewares/
+# object / library / temp build files
+*.o
+*.obj
+*.a
+*.ilk
+*.sym
+*.dbg
+*.d
+*.dep
+
+# common build folders (根据实际工程调整)
+Objects/
+Build/
+Output/
+Debug/
+Release/
+bin/
+build/
+
+# --- Keil / MDK specific ---
+# 保留 .uvproj/.uvprojx（项目文件），忽略用户 / 本机选项
+*.uvopt
+*.uvoptx
+*.uvproj.user
+*.uvtmp
+
+# --- STM32CubeMX related ---
+# 保留 .ioc（工程配置）; 忽略可能的本地/备份文件
+*.ioc.user
+*.ioc.bak
+*.ioc~ 
+
+# --- IDE / editor files ---
+.vscode/
+.idea/
+*.code-workspace
+*.project
+*.cproject
+.settings/
+MDK-ARM/FOC_SENSORLESS
+MDK-ARM/FOC_SENSORLESS.uvguix.27492
+# --- Backup / temp files ---
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+*.$$$
+
+# --- OS artifacts ---
+.DS_Store
+Thumbs.db
+
+# --- Coverage / profiling (optional) ---
+*.gcda
+*.gcno
+coverage/
+
