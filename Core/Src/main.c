@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -24,14 +24,16 @@
 #include "hrtim.h"
 #include "usb_device.h"
 #include "gpio.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 #include "other.h"
 #include "PMSM_Control_Core/SVPWM.h"
 #include "PMSM_Control_Core/Clarke_Park.h"
 #include "PMSM_Control_Core/EKF.h"
 #include "PMSM_Control_Core/PI_Controller.h"
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-
+#include "PMSM_Control_Core/Hardware.h"
+#include "PMSM_Control_Core/FluxObserver_PLL.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,25 +102,29 @@ int main(void)
   MX_HRTIM1_Init();
   MX_ADC1_Init();
   MX_USB_Device_Init();
+  MX_ADC2_Init();
   /* USER CODE BEGIN 2 */
-
-
   //初始化EKF
   EKF_init();
-
+  //初始化FluxObserver
+  FluxObserver_init();
   //ADC单端输入校准
   __HAL_RCC_ADC12_CLK_ENABLE();
   if (HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED) != HAL_OK)Error_Handler();
-
+  if (HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED) != HAL_OK)Error_Handler();
   //离线Ia,Ib,Vcc偏置ADC值校正
   Offline_IabVcc_Adjust();
 
   //给定D轴电流为0(事实上自动初始化为0，不需要人为给定)
   Id_PIstate.Set=0;
-
+  //开启注入转换结束标志
+  LL_ADC_EnableIT_JEOS(ADC1);
+  LL_ADC_EnableIT_JEOS(ADC2);
   // 启动ADC注入通道
   HAL_ADCEx_InjectedStart(&hadc1);
   __HAL_ADC_ENABLE_IT(&hadc1, ADC_IT_JEOC); //注入转换结束中断
+  HAL_ADCEx_InjectedStart(&hadc2);
+  __HAL_ADC_ENABLE_IT(&hadc2, ADC_IT_JEOC); //注入转换结束中断
 
   //开启定时器
   HAL_HRTIM_WaveformCountStart(&hhrtim1,HRTIM_TIMERID_MASTER
@@ -132,7 +138,7 @@ int main(void)
   HAL_GPIO_WritePin(EN2_GPIO_Port,EN2_Pin,GPIO_PIN_SET);
   HAL_GPIO_WritePin(EN3_GPIO_Port,EN3_Pin,GPIO_PIN_SET);
   //测试：
-  GiveESpeed(500);
+  GiveESpeed(1000);
   /* USER CODE END 2 */
 
   /* Infinite loop */

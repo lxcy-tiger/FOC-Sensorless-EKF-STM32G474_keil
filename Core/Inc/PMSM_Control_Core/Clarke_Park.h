@@ -6,7 +6,7 @@
 #define FOC_SENSORLESS_CLARKE_PARK_H
 #include "other.h"
 #include "arm_math.h"
-typedef struct Clarke_Park_t{
+struct Clarke_Park_t{
     struct Clarke_t{
         float Ia_I;
         float Ib_I;

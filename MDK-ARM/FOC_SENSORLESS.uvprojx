@@ -10,13 +10,14 @@
       <TargetName>FOC_SENSORLESS</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
-      <uAC6>0</uAC6>
+      <pArmCC>6240000::V6.24::ARMCLANG</pArmCC>
+      <pCCUsed>6240000::V6.24::ARMCLANG</pCCUsed>
+      <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32G474RETx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32G4xx_DFP.2.1.0</PackID>
+          <PackID>Keil.STM32G4xx_DFP.2.2.0</PackID>
           <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000-0x2001FFFF) IROM(0x8000000-0x807FFFF) CLOCK(8000000) FPU2 CPUTYPE("Cortex-M4") TZ</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -323,13 +324,13 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>2</wLevel>
+            <wLevel>3</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>5</v6Lang>
+            <v6Lang>3</v6Lang>
             <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
@@ -382,6 +383,16 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>Application/MDK-ARM</GroupName>
+          <Files>
+            <File>
+              <FileName>startup_stm32g474xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>startup_stm32g474xx.s</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Application/User/Core</GroupName>
           <Files>
             <File>
@@ -425,14 +436,14 @@
               <FilePath>../Core/Src/stm32g4xx_hal_msp.c</FilePath>
             </File>
             <File>
-              <FileName>other.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\other.c</FilePath>
-            </File>
-            <File>
               <FileName>USB_JustFloat.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\USB_JustFloat.c</FilePath>
+            </File>
+            <File>
+              <FileName>other.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\other.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -450,9 +461,19 @@
               <FilePath>..\Core\Src\PMSM_Control_Core\EKF.c</FilePath>
             </File>
             <File>
+              <FileName>EKF5.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\PMSM_Control_Core\EKF5.c</FilePath>
+            </File>
+            <File>
               <FileName>FluxObserver_PLL.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\PMSM_Control_Core\FluxObserver_PLL.c</FilePath>
+            </File>
+            <File>
+              <FileName>FluxWeakening.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\PMSM_Control_Core\FluxWeakening.c</FilePath>
             </File>
             <File>
               <FileName>Hardware.c</FileName>
@@ -465,99 +486,19 @@
               <FilePath>..\Core\Src\PMSM_Control_Core\PI_Controller.c</FilePath>
             </File>
             <File>
+              <FileName>SMO_PLL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\PMSM_Control_Core\SMO_PLL.c</FilePath>
+            </File>
+            <File>
+              <FileName>ST-SMO_PLL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\PMSM_Control_Core\ST-SMO_PLL.c</FilePath>
+            </File>
+            <File>
               <FileName>SVPWM.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\PMSM_Control_Core\SVPWM.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Application/User/CoreInc</GroupName>
-          <Files>
-            <File>
-              <FileName>adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\adc.h</FilePath>
-            </File>
-            <File>
-              <FileName>cordic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\cordic.h</FilePath>
-            </File>
-            <File>
-              <FileName>dma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\dma.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\gpio.h</FilePath>
-            </File>
-            <File>
-              <FileName>hrtim.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\hrtim.h</FilePath>
-            </File>
-            <File>
-              <FileName>main.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\main.h</FilePath>
-            </File>
-            <File>
-              <FileName>other.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\other.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32g4xx_hal_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\stm32g4xx_hal_conf.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32g4xx_it.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\stm32g4xx_it.h</FilePath>
-            </File>
-            <File>
-              <FileName>USB_JustFloat.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\USB_JustFloat.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Application/User/CoreInc/PMSM_Control_Core</GroupName>
-          <Files>
-            <File>
-              <FileName>Clarke_Park.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\PMSM_Control_Core\Clarke_Park.h</FilePath>
-            </File>
-            <File>
-              <FileName>EKF.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\PMSM_Control_Core\EKF.h</FilePath>
-            </File>
-            <File>
-              <FileName>FluxObserver_PLL.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\PMSM_Control_Core\FluxObserver_PLL.h</FilePath>
-            </File>
-            <File>
-              <FileName>Hardware.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\PMSM_Control_Core\Hardware.h</FilePath>
-            </File>
-            <File>
-              <FileName>PI_Controller.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\PMSM_Control_Core\PI_Controller.h</FilePath>
-            </File>
-            <File>
-              <FileName>SVPWM.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\PMSM_Control_Core\SVPWM.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -712,16 +653,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Application/MDK-ARM</GroupName>
-          <Files>
-            <File>
-              <FileName>startup_stm32g474xx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>startup_stm32g474xx.s</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Middlewares/USB_Device_Library</GroupName>
           <Files>
             <File>
@@ -766,8 +697,8 @@
   <RTE>
     <apis/>
     <components>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="4.3.0" condition="CMSIS Core">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.5.0"/>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.6.0" condition="ARMv6_7_8-M Device" ymlID="CMSIS:CORE">
+        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="FOC_SENSORLESS"/>
         </targetInfos>
